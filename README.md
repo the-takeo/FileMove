@@ -12,3 +12,10 @@ FileMove
 
 ### How to use
 設定ファイル(Setting.txt)を実行ファイルと同じディレクトリに保存し、実行してください。
+
+### How to use on Mac
+Windows上でなく、MonoがインストールされていればMac上でも実行できます。   
+Monoは[http://www.mono-project.com/Main_Page](http://www.mono-project.com/Main_Page,http://www.mono-project.com/Main_Page)からインストールできます。
+
+FileMove_on_Mac.commandを開き、"<ファイルディレクトリ>"の箇所をFileMoveのディレクトリに変更してください。   
+例)mono /Users/admin/Documents/FileMove
