@@ -18,4 +18,7 @@ Windows上でなく、MonoがインストールされていればMac上でも実
 Monoは[http://www.mono-project.com/Main_Page](http://www.mono-project.com/Main_Page,http://www.mono-project.com/Main_Page)からインストールできます。
 
 FileMove_on_Mac.commandを開き、"<ファイルディレクトリ>"の箇所をFileMoveのディレクトリに変更してください。   
-例)mono /Users/admin/Documents/FileMove
+例)`mono /Users/admin/Documents/FileMove`
+   
+そのままでは実行できない場合、以下のコマンドをターミナルから実行してください。  
+`chmod u+x ＜ファイル名＞.command`

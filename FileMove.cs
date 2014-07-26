@@ -8,7 +8,7 @@ namespace FileMove
 	class FileMove
 	{
 		static Dictionary<string,List<string>> Infos = new Dictionary<string,List<string>> ();
-		static string Movefrom=@"/Users/takeo/Downloads/";
+		static string Movefrom;
 
 		public static void Main (string[] args)
 		{
