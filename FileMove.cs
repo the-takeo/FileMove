@@ -12,19 +12,20 @@ namespace FileMove
 
 		public static void Main (string[] args)
 		{
+			if(args==null||args.Length!=1)
+				throw new ApplicationException("コマンドライン引数に対象ディレクトリのパスを指定してください。");
+
+			Movefrom=args[0];
+
+			if(Directory.Exists(Movefrom)==false)
+				throw new ApplicationException("対象ディレクトリが存在しません。");
+
 			using(StreamReader sr = new StreamReader ("Setting.txt"))
 			{
 				string setting;
-				bool is1stRow=true;
 
 				while ((setting = sr.ReadLine ()) != null) 
 				{
-					if(is1stRow)
-					{
-						Movefrom=setting;
-						is1stRow=false;
-					}
-
 					var info = setting.Split (',');
 					var moveToDirectory = info [0];
 
