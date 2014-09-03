@@ -1,62 +1,71 @@
 using System;
 using System.IO;
-using System.Text;
-using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace FileMove
 {
-	class FileMove
-	{
-		static Dictionary<string,List<string>> Infos = new Dictionary<string,List<string>> ();
-		static string Movefrom;
+    class Setting
+    {
+        public string From { get; set; }
+        public string To { get; set; }
+        public string[] Extentions { get; set; }
+        public bool IsCopy { get; set; }
 
-		public static void Main (string[] args)
-		{
-			if(args==null||args.Length!=1)
-				throw new ApplicationException("コマンドライン引数に対象ディレクトリのパスを指定してください。");
+        public Setting(string from, string to, string extentions, string copy)
+        {
+            this.From = from;
+            this.To = to;
+            this.Extentions = extentions.Split(',');
+            this.IsCopy = (copy == "True");
+        }
+    }
 
-			Movefrom=args[0];
+    class FileMove
+    {
+        public static void Main(string[] args)
+        {
+            var settings = from setting in XElement.Load("setting.xml").Elements()
+                           select new Setting(setting.Element("from").Value,
+                               setting.Element("to").Value, setting.Element("extentions").Value,
+                               setting.Element("copy").Value);
 
-			if(Directory.Exists(Movefrom)==false)
-				throw new ApplicationException("対象ディレクトリが存在しません。");
+            foreach (var setting in settings)
+            {
+                DoMoveFiles(setting);
+            }
+        }
 
-			using(StreamReader sr = new StreamReader ("Setting.txt"))
-			{
-				string setting;
+        public static void DoMoveFiles(Setting setting)
+        {
+            if (Directory.Exists(setting.From) == false)
+                throw new ApplicationException("Fromディレクトリが存在しません。");
 
-				while ((setting = sr.ReadLine ()) != null) 
-				{
-					var info = setting.Split (',');
-					var moveToDirectory = info [0];
+            if (Directory.Exists(setting.To) == false)
+                throw new ApplicationException("Toディレクトリが存在しません。");
+            
+            foreach (string file in Directory.GetFiles(setting.From))
+            {
+                string extention = Path.GetExtension(file).ToLower();
 
-					if (Infos.ContainsKey (moveToDirectory)==false)
-						Infos.Add (moveToDirectory, new List<string> ());
+                if (setting.Extentions.Contains(extention) == false)
+                    continue;
 
-					for (int i = 1; i < info.Length; i++) 
-					{
-						Infos [moveToDirectory].Add (info [i]);
-					}
-				}
-			}
+                string fileName = Path.GetFileName(file);
 
-			foreach (var moveTo in Infos.Keys) 
-			{
-				string[] fileNames = Directory.GetFiles (Movefrom);
+                if (setting.IsCopy)
+                {
+                    File.Copy(file, setting.To + fileName);
+                    Console.WriteLine(fileName + " has been copied!");
+                }
+                else
+                {
+                    File.Move(file, setting.To + fileName);
+                    Console.WriteLine(fileName + " has been moved!");
+                }
+            }
 
-				foreach (string file in fileNames) 
-				{
-					string Extention = Path.GetExtension (file).ToLower ();
-
-					if (Infos [moveTo].Contains (Extention) == false)
-						continue;
-
-					string fileName = Path.GetFileName (file);
-					File.Move (file, moveTo + fileName);
-					Console.WriteLine (fileName + " has moved!");
-				}
-
-				Console.WriteLine (" ");
-			}
-		}
-	}
+            Console.WriteLine(" ");
+        }
+    }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<settings>
+    <setting>
+        <from>移動（コピー）元ディレクトリ</from>
+        <to>移動（コピー）先ディレクトリ</to>
+        <extentions>移動（コピー】対象拡張子</extentions>
+        <copy>コピーの場合は"True"、移動の場合はそれ以外を記述</copy>
+    </setting>
+    <setting>
+        <from>/Users/admin/Downloads/</from>
+        <to>/Volumes/Admin's_HDD/Pictures/</to>
+        <extentions>.jpg,.jpeg,.gif,.png</extentions>
+        <copy>True</copy>
+    </setting>
+</settings>
+
+<!-- ファイル名をsetting.xmlに変更してください。 -->
