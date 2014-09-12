@@ -43,7 +43,7 @@ namespace FileMove
 
             if (Directory.Exists(setting.To) == false)
                 throw new ApplicationException("Toディレクトリが存在しません。");
-            
+
             foreach (string file in Directory.GetFiles(setting.From))
             {
                 string extention = Path.GetExtension(file).ToLower();
@@ -55,12 +55,17 @@ namespace FileMove
 
                 if (setting.IsCopy)
                 {
-                    File.Copy(file, setting.To + fileName);
+                    File.Copy(file, setting.To + fileName, true);
                     Console.WriteLine(fileName + " has been copied!");
                 }
                 else
                 {
-                    File.Move(file, setting.To + fileName);
+                    string moveToFileName = setting.To + fileName;
+
+                    if (File.Exists(moveToFileName))
+                        File.Delete(moveToFileName);
+
+                    File.Move(file, moveToFileName);
                     Console.WriteLine(fileName + " has been moved!");
                 }
             }
