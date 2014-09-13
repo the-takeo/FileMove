@@ -52,16 +52,15 @@ namespace FileMove
                     continue;
 
                 string fileName = Path.GetFileName(file);
+                string moveToFileName = setting.To + fileName;
 
                 if (setting.IsCopy)
                 {
-                    File.Copy(file, setting.To + fileName, true);
+                    File.Copy(file, moveToFileName, true);
                     Console.WriteLine(fileName + " has been copied!");
                 }
                 else
                 {
-                    string moveToFileName = setting.To + fileName;
-
                     if (File.Exists(moveToFileName))
                         File.Delete(moveToFileName);
 
