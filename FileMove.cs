@@ -38,11 +38,7 @@ namespace FileMove
 
         public static void DoMoveFiles(Setting setting)
         {
-            if (Directory.Exists(setting.From) == false)
-                throw new ApplicationException("Fromディレクトリが存在しません。");
-
-            if (Directory.Exists(setting.To) == false)
-                throw new ApplicationException("Toディレクトリが存在しません。");
+            checkSetting(setting);
 
             foreach (string file in Directory.GetFiles(setting.From))
             {
@@ -52,24 +48,60 @@ namespace FileMove
                     continue;
 
                 string fileName = Path.GetFileName(file);
-                string moveToFileName = setting.To + fileName;
+                string moveToFileName = determineFilename(setting.To + fileName);
 
                 if (setting.IsCopy)
                 {
-                    File.Copy(file, moveToFileName, true);
+                    File.Copy(file, moveToFileName);
                     Console.WriteLine(fileName + " has been copied!");
                 }
                 else
                 {
-                    if (File.Exists(moveToFileName))
-                        File.Delete(moveToFileName);
-
                     File.Move(file, moveToFileName);
                     Console.WriteLine(fileName + " has been moved!");
                 }
             }
 
             Console.WriteLine(" ");
+        }
+
+        private static void checkSetting(Setting setting)
+        {
+            if (Directory.Exists(setting.From) == false)
+                throw new ApplicationException("Fromディレクトリが存在しません。");
+
+            if (Directory.Exists(setting.To) == false)
+                throw new ApplicationException("Toディレクトリが存在しません。");
+        }
+
+        private static string determineFilename(string filename)
+        {
+            string fileBody, fileExt;
+            parseFilename(filename, out fileBody, out fileExt);
+
+            int count = 0;
+            while (File.Exists(filename))
+            {
+                count++;
+                filename = fileBody + "_" + count.ToString() + fileExt;
+            }
+            return filename;
+        }
+
+        private static void parseFilename(string filename, out string body, out string ext)
+        {
+            int dotIndex = filename.LastIndexOf(".");
+            if (dotIndex > 0)
+            {
+                body = filename.Substring(0, dotIndex);
+                ext = filename.Substring(dotIndex,
+                filename.Length - dotIndex);
+            }
+            else
+            {
+                body = filename;
+                ext = string.Empty;
+            }
         }
     }
 }
