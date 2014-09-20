@@ -19,10 +19,12 @@ Windows上でなく、MonoがインストールされていればMac上でも実
 Monoは[http://www.mono-project.com/Main_Page](http://www.mono-project.com/Main_Page,http://www.mono-project.com/Main_Page)からインストールできます。
 
 Monoがインストールされていれば`dmcs -r:System.Xml.Linq.dll FileMove.cs`でコンパイルできます。
+`Compile_FileMove.command`でもコンパイル可能です。
 
-FileMove_on_Mac.commandを開き、<ファイルディレクトリ>の箇所をFileMove.exeのディレクトリに変更してください。 
-例)`mono /Users/admin/Documents/FileMove`
-   
-通常、そのままではFileMove_on_Mac.commandは実行できません。   
+Monoがインストールされていれば`mono FileMove`で実行できます。
+`FileMove_on_Mac.command`でも実行可能です。
+
+通常、そのままではcommandファイルは実行できません。   
 その場合、以下のコマンドをターミナルから実行してください。  
+`chmod u+x Compile.command`
 `chmod u+x FileMove_on_Mac.command`
