@@ -21,7 +21,7 @@ Monoは[http://www.mono-project.com/Main_Page](http://www.mono-project.com/Main_
 Monoがインストールされていれば`dmcs -r:System.Xml.Linq.dll FileMove.cs`でコンパイルできます。
 `Compile_FileMove.command`でもコンパイル可能です。
 
-Monoがインストールされていれば`mono FileMove`で実行できます。
+Monoがインストールされていれば`mono FileMove.exe`で実行できます。
 `FileMove_on_Mac.command`でも実行可能です。
 
 通常、そのままではcommandファイルは実行できません。   
