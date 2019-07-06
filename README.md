@@ -1,30 +1,33 @@
 FileMove
 ========
 ### About
-設定ファイル(setting.xml)に基づき、ファイルの種類(拡張子)ごとにファイルを移動します。
+Based on the setting file (setting.xml), move files for each file type (extension).
 
 ### How to setting
-設定ファイル(setting.xml)をsetting_sample.xmlを参考に設定してください。   
-以下のことが設定できます。   
-* 移動（コピー）元ディレクトリ
-* 移動（コピー）先ディレクトリ
-* 移動（コピー）対象拡張子
-* 移動 orコピー
+Edit setting file(setting.xml) with reference to "setting_sample.xml".  
+You can set the following.
+* Folder(Copy from).
+* Folder(Copy to).
+* Extension.
+* Move or Copy.
 
 ### How to use
-設定ファイル(setting.xml)を実行ファイル(FileMove.exe)と同じディレクトリに保存してください。
+Set setting.xml and FileMove.exe on same folder.
 
 ### How to use on Mac
-Windows上でなく、MonoがインストールされていればMac上でも実行できます。   
-Monoは[http://www.mono-project.com/Main_Page](http://www.mono-project.com/Main_Page,http://www.mono-project.com/Main_Page)からインストールできます。
+You can do this not only on Windows but also on Mac(with Mono)
+[http://www.mono-project.com/Main_Page](http://www.mono-project.com/Main_Page,http://www.mono-project.com/Main_Page)
 
-Monoがインストールされていれば`dmcs -r:System.Xml.Linq.dll FileMove.cs`でコンパイルできます。
-`Compile_FileMove.command`でもコンパイル可能です。
+You can compile this with following command.
+`dmcs -r:System.Xml.Linq.dll FileMove.cs`
+And also can use this.
+`Compile_FileMove.command`
 
-Monoがインストールされていれば`mono FileMove.exe`で実行できます。
-`FileMove_on_Mac.command`でも実行可能です。
+You can do this on Mac(with Mono) by using following.
+`mono FileMove.exe`
+And also can use this.
+`FileMove_on_Mac.command`
 
-通常、そのままではcommandファイルは実行できません。   
-その場合、以下のコマンドをターミナルから実行してください。  
+If you can not run ".command" file,Please do following command.
 `chmod u+x Compile.command`
 `chmod u+x FileMove_on_Mac.command`
